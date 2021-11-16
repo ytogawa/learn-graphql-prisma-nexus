@@ -1,0 +1,31 @@
+{
+  "name": "learn-graphql-prisma-nexus",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "start": "npx prisma generate && ts-node ./src/index.ts",
+    "start:dev": "npx prisma generate && ts-node-dev --no-notify --respawn --transpile-only ./src/index.ts",
+    "db:generate": "prisma generate",
+    "db:migrate:dev": "prisma migrate dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.0.2",
+    "graphql-yoga": "^1.18.3",
+    "nexus": "^1.1.0",
+    "nexus-prisma": "^0.34.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.9.2",
+    "@types/uuid": "^8.3.1",
+    "prisma": "^3.0.2",
+    "ts-node": "^10.2.1",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.4.3",
+    "uuid": "^8.3.2"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  }
+}

@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator nexusPrisma {
+  provider = "nexus-prisma"
+}
+
+/// ユーザーを表します。
+model User {
+  id String @id @default(uuid()) @db.Uuid
+
+  name String @map("title") /// 名前です。
+
+  todoItems TodoItem[]
+
+  @@map("users")
+}
+
+/// TODOの項目を表します。
+model TodoItem {
+  id      String @id @default(uuid()) @db.Uuid /// IDです。
+  userId  String @map("user_id") @db.Uuid /// ユーザーのIDです。
+  status  String @map("status") /// ステータスです。
+  title   String @map("title") /// タイトルです。
+  content String @map("content") /// 本文です。
+
+  user       User       @relation(fields: [userId], references: [id]) /// TODOを持つユーザーです。
+  todoStatus TodoStatus @relation(fields: [status], references: [status]) /// 状態です。
+
+  @@map("todo_items")
+}
+
+/// TODOの状態を表します。
+model TodoStatus {
+  status String @id /// TODOの状態を表します。
+
+  todoItems TodoItem[]
+
+  @@map("todo_status")
+}
+
